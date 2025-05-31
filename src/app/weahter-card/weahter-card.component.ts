@@ -20,18 +20,20 @@ export class WeahterCardComponent implements OnInit{
     private Timeservice:TimeService
   ){}
   ngOnInit(): void {
+    //Get Weather Data from Weather Servie
     this.Weatherservices.getWeather(this.city).subscribe((data)=>{
       this.Weather = data
       const tz = this.Weather.location.tz_id
       const Country = this.Weather.location.country
       const City = this.Weather.location.name
+      //Get Time and day name for Time service
       this.Time = this.Timeservice.getTimeForCity(tz,City,Country)
       this.dayName = this.Timeservice.getDayName(this.Weather.location.localtime)
     })
     
   }
 
-  
+  //Get Each Icons for Weather condition form conditon code from condition code of API
   getweatherIcons(condition: number,is_day:number): string {
     if (condition === 1000) {
       return is_day === 1 ?

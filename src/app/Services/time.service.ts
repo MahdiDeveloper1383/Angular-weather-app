@@ -8,6 +8,7 @@ import { TimeData } from '../Shared/Interfaces/Time';
 export class TimeService {
 
   constructor() { }
+  //Get City time
   getTimeForCity(timezone: string, city: string, country: string): TimeData {
     const date = new Date();
     const formatter = new Intl.DateTimeFormat('en-GB', {
@@ -39,6 +40,7 @@ export class TimeService {
     };
     
   }
+  //Get day by Names
   getDayName(dateString: string): string {
     const date = new Date(dateString);
     const formatter = new Intl.DateTimeFormat('en-US', { weekday: 'long' });
