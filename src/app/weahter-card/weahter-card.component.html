@@ -10,11 +10,21 @@
                 </button>            
             </div>
             <div *ngIf="Weather" class="deatils cursor-pointer">
-                <div class="ml-auto mr-auto items-center mt-7">
-                    <h1 class="text-center text-4xl text-sky-200">{{Weather.location.localtime}}</h1>
+                <div class=" items-center mt-2 flex flex-row  justify-between">
+                    <div class="left">
+                        <h2 class="text-left text-3xl font-bold text-sky-300">{{Weather.location.country}}</h2>
+                        <h2 class="text-left text-3xl font-bold text-sky-300">{{Weather.location.name}}</h2>
+                    </div>
+                    <div class="right">
+                        <h3 class="text-left text-2xl font-bold text-sky-300">{{dayName}}</h3>
+                        <h3 class="text-left text-2xl font-bold text-sky-300">{{Time.hour}}:{{Time.minute}}</h3>
+                    </div>
                 </div>
-                <div class="shape flex justify-center items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ccd0d7" [attr.d]="getweatherIcons(Weather.current.condition.code,Weather.current.is_day)"/></svg>
+                <div class="value-container pt-5 items-center">
+                    <div class="shape flex justify-center items-center ">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ccd0d7" [attr.d]="getweatherIcons(Weather.current.condition.code,Weather.current.is_day)"/></svg>
+                    </div>
+                    <h2 class="text-4xl text-center font-bold text-green-800">{{Weather.current.condition.text}}</h2>
                 </div>
             </div>
         </div>

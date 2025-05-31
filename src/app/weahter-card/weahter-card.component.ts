@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherApiResponse } from '../Shared/Interfaces/Wheaterapp';
 import { WeatherService } from '../Services/Weather/weather.service';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { TimeService } from '../Services/time.service';
+import { TimeData } from '../Shared/Interfaces/Time';
 
 @Component({
   selector: 'app-weahter-card',
@@ -11,13 +13,25 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 })
 export class WeahterCardComponent implements OnInit{
   Weather!:WeatherApiResponse
-  city:string = 'Khoy'
-  constructor(private Weatherservices:WeatherService){}
+  city:string = 'Tokyo'
+  Time!:TimeData
+  dayName!:string
+  constructor(private Weatherservices:WeatherService,
+    private Timeservice:TimeService
+  ){}
   ngOnInit(): void {
     this.Weatherservices.getWeather(this.city).subscribe((data)=>{
       this.Weather = data
+      const tz = this.Weather.location.tz_id
+      const Country = this.Weather.location.country
+      const City = this.Weather.location.name
+      this.Time = this.Timeservice.getTimeForCity(tz,City,Country)
+      this.dayName = this.Timeservice.getDayName(this.Weather.location.localtime)
     })
+    
   }
+
+  
   getweatherIcons(condition: number,is_day:number): string {
     if (condition === 1000) {
       return is_day === 1 ?
