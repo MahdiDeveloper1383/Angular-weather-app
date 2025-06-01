@@ -16,10 +16,12 @@ export class WeahterCardComponent implements OnInit{
   city:string = 'Tokyo'
   Time!:TimeData
   dayName!:string
+  temperatureUnit: string = 'C'
   constructor(private Weatherservices:WeatherService,
     private Timeservice:TimeService
   ){}
   ngOnInit(): void {
+  
     //Get Weather Data from Weather Servie
     this.Weatherservices.getWeather(this.city).subscribe((data)=>{
       this.Weather = data
@@ -32,7 +34,29 @@ export class WeahterCardComponent implements OnInit{
     })
     
   }
-
+  fetchCity(search: HTMLInputElement): void {
+    this.city = search.value; // Assign the input value to `this.city`
+  
+    // Fetch weather data for the updated city
+    this.Weatherservices.getWeather(this.city).subscribe((data) => {
+      this.Weather = data;
+      const tz = this.Weather.location.tz_id;
+      const Country = this.Weather.location.country;
+      const City = this.Weather.location.name;
+  
+      // Update Time and dayName using TimeService
+      this.Time = this.Timeservice.getTimeForCity(tz, City, Country);
+      this.dayName = this.Timeservice.getDayName(this.Weather.location.localtime);
+    });
+  }
+   // Method to convert temperature based on the selected unit
+   convertTemperature(tempC: number): number {
+    return this.temperatureUnit === 'C' ? tempC : (tempC * 9) / 5 + 32; // Convert to Fahrenheit if unit is 'F'
+  }
+  // Method to toggle temperature unit
+  toggleTemperatureUnit(): void {
+    this.temperatureUnit = this.temperatureUnit === 'C' ? 'F' : 'C'; // Toggle between Celsius and Fahrenheit
+  }
   //Get Each Icons for Weather condition form conditon code from condition code of API
   getweatherIcons(condition: number,is_day:number): string {
     if (condition === 1000) {
