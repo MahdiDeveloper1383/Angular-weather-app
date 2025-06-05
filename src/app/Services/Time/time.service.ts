@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TimeData } from '../Shared/Interfaces/Time';
+import { TimeData } from '../../Shared/Interfaces/Time';
 
 @Injectable({
   providedIn: 'root'

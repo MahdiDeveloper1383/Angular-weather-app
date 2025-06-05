@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherApiResponse } from '../Shared/Interfaces/Wheaterapp';
 import { WeatherService } from '../Services/Weather/weather.service';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
-import { TimeService } from '../Services/time.service';
+import { TimeService } from '../Services/Time/time.service';
 import { TimeData } from '../Shared/Interfaces/Time';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-weahter-card',
-  imports: [NgIf],
+  imports: [NgIf,RouterModule],
   templateUrl: './weahter-card.component.html',
   styleUrl: './weahter-card.component.css'
 })
@@ -21,9 +22,10 @@ export class WeahterCardComponent implements OnInit{
     private Timeservice:TimeService
   ){}
   ngOnInit(): void {
-  
-    //Get Weather Data from Weather Servie
-    this.Weatherservices.getWeather(this.city).subscribe((data)=>{
+    this.loadWeatherData(this.city)
+  }
+  loadWeatherData(city:string){  //Get Weather Data from Weather Servie
+    this.Weatherservices.getWeather(city).subscribe((data)=>{
       this.Weather = data
       const tz = this.Weather.location.tz_id
       const Country = this.Weather.location.country
@@ -32,22 +34,10 @@ export class WeahterCardComponent implements OnInit{
       this.Time = this.Timeservice.getTimeForCity(tz,City,Country)
       this.dayName = this.Timeservice.getDayName(this.Weather.location.localtime)
     })
-    
   }
   fetchCity(search: HTMLInputElement): void {
     this.city = search.value; // Assign the input value to `this.city`
-  
-    // Fetch weather data for the updated city
-    this.Weatherservices.getWeather(this.city).subscribe((data) => {
-      this.Weather = data;
-      const tz = this.Weather.location.tz_id;
-      const Country = this.Weather.location.country;
-      const City = this.Weather.location.name;
-  
-      // Update Time and dayName using TimeService
-      this.Time = this.Timeservice.getTimeForCity(tz, City, Country);
-      this.dayName = this.Timeservice.getDayName(this.Weather.location.localtime);
-    });
+    this.loadWeatherData(this.city)
   }
    // Method to convert temperature based on the selected unit
    convertTemperature(tempC: number): number {
