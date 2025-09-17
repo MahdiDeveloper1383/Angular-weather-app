@@ -11,6 +11,6 @@ export class WeatherService {
   constructor(private http:HttpClient) { }
   //Get Each City Weather Information form API
   getWeather(city:string):Observable<WeatherApiResponse>{
-    return this.http.get<WeatherApiResponse>(`http://api.weatherapi.com/v1/current.json?key=3dfe90ce31954049b07201916253005 &q=${city}&aqi=no`)
+    return this.http.get<WeatherApiResponse>(`https://api.weatherapi.com/v1/current.json?key=3dfe90ce31954049b07201916253005 &q=${city}&aqi=no`)
   }
 }
