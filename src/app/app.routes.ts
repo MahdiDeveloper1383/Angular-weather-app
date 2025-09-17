@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { WeatherDeatailsComponent } from './weather-deatails/weather-deatails.component';
+import { HomeComponent } from './pages/home/home.component';
+import { WeatherDetailsPageComponent } from './pages/weather-details-page/weather-details-page.component';
+
 
 export const routes: Routes = [
     {
@@ -9,6 +10,6 @@ export const routes: Routes = [
     },
     {
         path:'weather/:city',
-        component:WeatherDeatailsComponent
+        component:WeatherDetailsPageComponent
     }
 ];

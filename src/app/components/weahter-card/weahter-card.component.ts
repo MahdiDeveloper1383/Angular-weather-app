@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherApiResponse } from '../Shared/Interfaces/Wheaterapp';
-import { WeatherService } from '../Services/Weather/weather.service';
+import { WeatherApiResponse } from '../../Shared/Interfaces/Wheaterapp';
+import { WeatherService } from '../../Services/Weather/weather.service';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
-import { TimeService } from '../Services/Time/time.service';
-import { TimeData } from '../Shared/Interfaces/Time';
+import { TimeService } from '../../Services/Time/time.service';
+import { TimeData } from '../../Shared/Interfaces/Time';
 import { RouterModule } from '@angular/router';
 
 @Component({

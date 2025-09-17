@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { WeatherService } from '../Services/Weather/weather.service';
-import { WeatherApiResponse } from '../Shared/Interfaces/Wheaterapp';
 import { NgIf } from '@angular/common';
-import { TimeService } from '../Services/Time/time.service';
-import { TimeData } from '../Shared/Interfaces/Time';
-
+import { WeatherService } from '../../Services/Weather/weather.service';
+import { WeatherApiResponse } from '../../Shared/Interfaces/Wheaterapp';
+import { TimeService } from '../../Services/Time/time.service';
+import { TimeData } from '../../Shared/Interfaces/Time';
 @Component({
-  selector: 'app-weather-deatails',
+  selector: 'app-weather-details-page',
   imports: [NgIf],
-  templateUrl: './weather-deatails.component.html',
-  styleUrl: './weather-deatails.component.css'
+  templateUrl: './weather-details-page.component.html',
+  styleUrl: './weather-details-page.component.css'
 })
-export class WeatherDeatailsComponent implements OnInit{
+export class WeatherDetailsPageComponent {
   Weather!:WeatherApiResponse
   Time!:TimeData
   dayName!:string
@@ -67,5 +66,4 @@ export class WeatherDeatailsComponent implements OnInit{
 
     }
   }
-
 }
